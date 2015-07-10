@@ -8,13 +8,11 @@ class Board extends React.Component{
         this.state = {
             notes: []
         };
-        this.componentWillMount = this.componentWillMount.bind(this);
         this.nextId = this.nextId.bind(this);
         this.add = this.add.bind(this);
         this.update = this.update.bind(this);
         this.remove = this.remove.bind(this);
         this.eachNote = this.eachNote.bind(this);
-        this.render = this.render.bind(this);
     }
 
     componentWillMount() {

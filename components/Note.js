@@ -9,16 +9,11 @@ class Note extends React.Component{
         this.state = {
             editing: false
         };
-        this.componentWillMount = this.componentWillMount.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.componentDidUpdate = this.componentDidUpdate.bind(this);
-        this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
         this.edit = this.edit.bind(this);
         this.save = this.save.bind(this);
         this.remove = this.remove.bind(this);
         this.renderForm = this.renderForm.bind(this);
         this.renderDisplay = this.renderDisplay.bind(this);
-        this.render = this.render.bind(this);
     }
 
     componentWillMount() {
