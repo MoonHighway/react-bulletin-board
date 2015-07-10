@@ -1,6 +1,6 @@
 {
   "name": "react-bulletin-board",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "The React Bulletin Board upgrated to ES6",
   "main": "app.js",
   "dependencies": {
