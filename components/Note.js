@@ -2,18 +2,19 @@ import React from 'react'
 import $ from 'jquery'
 import ui from 'jquery-ui/draggable'
 
-class Note extends React.Component{
+class Note extends React.Component {
 
     constructor() {
         super();
+
         this.state = {
             editing: false
         };
+
         this.edit = this.edit.bind(this);
         this.save = this.save.bind(this);
         this.remove = this.remove.bind(this);
-        this.renderForm = this.renderForm.bind(this);
-        this.renderDisplay = this.renderDisplay.bind(this);
+        this.randomBetween = this.randomBetween.bind(this);
     }
 
     componentWillMount() {
@@ -31,7 +32,7 @@ class Note extends React.Component{
     componentDidUpdate() {
         var textArea;
         if (this.state.editing) {
-            textArea = this.refs.newText.getDOMNode();
+            textArea = React.findDOMNode(this.refs.newText);
             textArea.focus();
             textArea.select();
         }
@@ -50,7 +51,8 @@ class Note extends React.Component{
     }
 
     save() {
-        this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
+        var val = React.findDOMNode(this.refs.newText).value;
+        this.props.onChange(val, this.props.index);
         this.setState({editing: false});
     }
 
@@ -59,33 +61,27 @@ class Note extends React.Component{
     }
 
     renderForm() {
-        return (
-            <div className="note"
-                 style={this.style}>
-                <textarea ref="newText"
-                          defaultValue={this.props.children}
-                          className="form-control"></textarea>
-                <button onClick={this.save}
-                        className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
-            </div>
-        );
+        return <div className="note"
+                    style={this.style}>
+            <textarea ref="newText" defaultValue={this.props.children}
+                      className="form-control"></textarea>
+            <button onClick={this.save}
+                    className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk"/>
+        </div>
     }
 
     renderDisplay() {
-        return (
-            <div className="note"
-                 style={this.style}
-                 onDoubleClick={this.edit}>
-
-                <p>{this.props.children}</p>
-                <span>
-                    <button onClick={this.edit}
-                            className="btn btn-primary btn-sm glyphicon glyphicon-pencil" />
-                    <button onClick={this.remove}
-                            className="btn btn-danger btn-sm glyphicon glyphicon-trash" />
-                </span>
-            </div>
-        );
+        return <div className="note"
+                    style={this.style}
+                    onDoubleClick={this.edit}>
+            <p>{this.props.children}</p>
+            <span>
+                <button onClick={this.edit}
+                        className="btn btn-primary btn-sm glyphicon glyphicon-pencil"/>
+                <button onClick={this.remove}
+                        className="btn btn-danger btn-sm glyphicon glyphicon-trash"/>
+            </span>
+        </div>
     }
 
     render() {
@@ -93,13 +89,5 @@ class Note extends React.Component{
     }
 
 }
-
-Note.propTypes = {
-    index: React.PropTypes.number
-};
-
-Note.defaultProps = {
-    index: -1
-};
 
 module.exports = Note;

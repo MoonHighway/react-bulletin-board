@@ -1,13 +1,15 @@
 import React from 'react'
 import Note from './Note'
 
-class Board extends React.Component{
+class Board extends React.Component {
 
     constructor() {
         super();
+
         this.state = {
             notes: []
         };
+
         this.nextId = this.nextId.bind(this);
         this.add = this.add.bind(this);
         this.update = this.update.bind(this);
@@ -16,21 +18,14 @@ class Board extends React.Component{
     }
 
     componentWillMount() {
-
         var self = this;
-
         if (this.props.count) {
-
             $.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" + this.props.count + "&start-with-lorem=1&callback=?", function (results) {
-
-                results[0].split('. ').forEach(function(sentence) {
+                results[0].split('. ').forEach(function (sentence) {
                     self.add(sentence.substring(0, 40));
                 });
-
             });
-
         }
-
     }
 
     nextId() {
@@ -62,21 +57,18 @@ class Board extends React.Component{
     }
 
     eachNote(note, i) {
-        return (
-            <Note key={note.id}
-                  index={i}
-                  onChange={this.update}
-                  onRemove={this.remove}>{note.note}</Note>
-        );
+        return <Note key={note.id}
+                     index={i}
+                     onChange={this.update}
+                     onRemove={this.remove}>{note.note}</Note>
     }
 
     render() {
-        return (
-            <div className="board">
-                {this.state.notes.map(this.eachNote)}
-                <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note")} />
-            </div>
-        );
+        return <div className="board">
+            {this.state.notes.map(this.eachNote)}
+            <button className="btn btn-sm btn-success glyphicon glyphicon-plus"
+                    onClick={this.add.bind(null, "New Note")}/>
+        </div>
     }
 
 }
